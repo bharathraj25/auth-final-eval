@@ -10,8 +10,8 @@ app.use(cors());
 app.use(express.json());
 
 const apiRoutes = require('./routes/api');
-app.use('/api', apiRoutes);
 
+app.use('/api', apiRoutes);
 
 app.listen(PORT, () => {
   console.log(`hello visit http://localhost:${PORT}`);

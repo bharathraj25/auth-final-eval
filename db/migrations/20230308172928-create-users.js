@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Users', {
-      username: {
+      email: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.STRING

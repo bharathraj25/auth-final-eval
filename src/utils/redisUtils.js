@@ -7,7 +7,7 @@ const config = {
   },
 };
 
-const redisClient = createClient(process.env.REDIS_HOST ?? config);
+const redisClient = process.env.REDIS_HOST ? createClient(config) : createClient();
 redisClient.on('error', (err) => {
   console.error(err);
 });
@@ -28,13 +28,13 @@ const disconnectRedis = async () => {
 
 // good way to do so as in a file should only handle this right ?
 // on some terminate or quit signal auto disconnect from redis, below are some of the event signals recieved
-// const exitingEvents = ['SIGINT', 'SIGTERM', 'SIGQUIT', 'SIGHUP', 'exit'];
-// for (const exitingEvent of exitingEvents) {
-//   process.on(exitingEvent, async () => {
-//     console.log('disconnecting to redis');
-//     await disconnectRedis();
-//   });
-// }
+const exitingEvents = ['SIGINT', 'SIGTERM', 'SIGQUIT', 'SIGHUP', 'exit'];
+for (const exitingEvent of exitingEvents) {
+  process.on(exitingEvent, async () => {
+    console.log('disconnecting to redis');
+    await disconnectRedis();
+  });
+}
 
 module.exports = {
   getRedisClient,

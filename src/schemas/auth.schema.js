@@ -2,8 +2,9 @@ const joi = require('joi');
 
 module.exports = {
   login: joi.object({
-    username: joi
+    email: joi
       .string()
+      .email()
       .required(),
 
     password: joi

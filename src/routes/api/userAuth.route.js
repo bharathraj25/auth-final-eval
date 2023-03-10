@@ -21,7 +21,6 @@ router.post(
 );
 router.post(
   '/token/validate',
-  joiValidator(authSchema.validateToken),
   authController.validateToken
 );
 

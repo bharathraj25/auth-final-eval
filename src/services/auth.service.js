@@ -8,13 +8,13 @@ const SECRET_KEY = process.env.SECRET_KEY ?? 'secret';
 const { EXPIRATION_TIME_SECONDS } = require('../config');
 
 module.exports = {
-  async login(username, password) {
+  async login(email, password) {
     const redisClient = await utilService.getRedisClient();
     const foundUser = await db
       .Users
       .findOne({
         where: {
-          username,
+          email,
           password: utilService.hashString(password)
         }
       });
